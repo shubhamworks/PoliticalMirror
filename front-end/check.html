@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+<style>
+    .highlight {
+  background-color: yellow;
+}
+    
+    </style>
+
+
+<!-- <button onclick="highlight('fox')">Highlight</button> -->
+
+<div id="inputText">
+  The fox went over the fence
+</div>
+
+
+</body>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script>
+
+
+  $.get( "https://unsere-server.herokuapp.com/getFeed", function( data ) {
+    console.log(data);
+
+    let lines=data.result[0].highlights.split("$$")
+   $('body').html( data.result[0].html_text);
+   console.log(lines[0])
+doSearch("Eir", "yellow")
+
+
+    // console.log(highlight($('body').text())) 
+  
+
+
+
+
+
+// for(let i=0; i<lines.length; i++)
+// {
+// // console.log(lines[0])
+// //     // data.result[0].html_text=  data.result[0].html_text.replace(/EU/g, "<span class='highlight'>EU</span>");
+// // highlight(lines[1]);
+// $('body').text().highlight(lines[i]);
+// }
+
+});
+
+// function highlight(text) {
+//     var inputText = document.getElementById("high");
+//     var innerHTML = inputText.innerHTML;
+//     var index = innerHTML.indexOf(text);
+//     if (index >= 0) { 
+//      innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+//      inputText.innerHTML = innerHTML;
+//     }
+//   }
+
+
+  function doSearch(text, backgroundColor) {
+  if (window.find && window.getSelection) {
+    document.designMode = "on";
+    var sel = window.getSelection();
+    sel.collapse(document.body, 0);
+
+    while (window.find(text)) {
+      document.execCommand("HiliteColor", false, backgroundColor);
+      sel.collapseToEnd();
+    }
+    document.designMode = "off";
+  }
+}
+
+  
+</script>
+
+</html>
